@@ -10,6 +10,19 @@ var starWarsRPG = {
     obiwan: {name: "obiwan", charName:"Obi-Wan", health: 120 ,damage: 8, model: "assets/images/characters/obiwankenobi.webp"},
     maul: {name: "maul", charName:"Darth Maul", health: 180, damage: 25, model: "assets/images/characters/DarthMaul.jpeg"},
     sidious: {name: "sidious", charName:"Darth Sidious", health: 150, damage: 20, model: "assets/images/characters/darthSidious.jpg"}
+    },
+    attacker: {
+        attackerCount: 0,
+        attackersAllowed: 1,
+        id: "",
+        health: 0,
+        damage: 0,
+    },
+    defender: {
+        defendersAllowed: 1,
+        id: "",
+        health: 0,
+        damage: 0,
     }
 }  
 
@@ -46,3 +59,11 @@ for (var key in starWarsRPG.characters) {
     $(`#${obj["name"]}`).append(characterBoxImg);
 
 }
+
+$(".characterBox").click(function(){
+    if (starWarsRPG.attacker.attackerCount < starWarsRPG.attacker.attackersAllowed){
+        starWarsRPG.attacker.attackerCount++ 
+        $("#selected-character").append(this);
+        $("non-selected-character").append(".characterBox");
+    }
+})
