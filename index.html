@@ -12,22 +12,23 @@
 </head>
 <body>
     <header>STAR WARS RPG</header>
+    <div class="wrapper">
+        <div ID="begin-location"></div>
+        <H2>YOUR CHARACTER</H2>
+        <div ID="selected-character"></div>
 
-    <div ID="begin-location"></div>
-    <H2>YOUR CHARACTER</H2>
-    <div ID="selected-character"></div>
+        <H2>ENEMIES AVAILABLE TO ATTACK</H2>
+        <DIV ID="non-selected-character"></DIV>
 
-    <H2>ENEMIES AVAILABLE TO ATTACK</H2>
-    <DIV ID="non-selected-character"></DIV>
+        <H2>FIGHT SECTION</H2>
+        <BUTTON ID="attack">ATTACK</BUTTON>
 
-    <H2>FIGHT SECTION</H2>
-    <BUTTON ID="ATTACK">ATTACK</BUTTON>
+        <H2>DEFENDER</H2>
+        <DIV ID="current-enemy"></DIV>
 
-    <H2>DEFENDER</H2>
-    <DIV ID="APPEND SELECTED ENEMY HERE"></DIV>
-
-    <P ID="BUTTON RESULTS"></P>
-    <BUTTON ID="HIDE UNLESS YOU WIN OR LOSE">RESTART</BUTTON>
+        <div id="attack-dialogue"></div>
+        <BUTTON ID="resetKey" class="resetButton">RESTART</BUTTON>
+    </div>
 
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

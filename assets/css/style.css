@@ -27,7 +27,7 @@ h1 {
 }
 
 h2 {
-    color: #4aaaa5;
+    color: #60aa4a;
     border-bottom: 3px solid #cccccc;
     background-color: #ffffff;
     clear: both;
@@ -45,7 +45,6 @@ h2 {
 .characterBox {
     display: inline-block;
     width: 150px;
-    padding: 20px 10px;
     border: green solid 1px;
     text-align: center;
     overflow: auto;
@@ -54,4 +53,25 @@ h2 {
 .characterBoxImg {
     width: 125px;
     height: 125px;
+}
+
+.playerCharacter {
+    border: 2px solid green;
+}
+
+.enemy {
+    background-color: red;
+    color: black;
+    border-color: black
+}
+
+.currentEnemy {
+    background-color: black;
+    color: white;
+    border: green solid 1px;
+
+}
+
+#resetKey {
+ display: none;   
 }
