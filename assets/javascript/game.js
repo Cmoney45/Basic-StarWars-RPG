@@ -1,10 +1,4 @@
 var starWarsRPG = {
-//     CharCreator: function(name,health,attackDmg,model) {
-//     this.name = name;
-//     this.health = health;
-//     this.attackDmg = attackDmg;
-//     this.model = model;
-// },
     characters: {
         luke: {
             name: "luke", 
@@ -13,7 +7,7 @@ var starWarsRPG = {
             damage: 14, 
             model: "assets/images/characters/LukeSkywalker.png",
             fightMusic: "lamusica",
-            background: "assets/images/background/ROTJ_Throne_Room.png",
+            background: "assets/images/background/lukebg2.jpg",
             winMusic: "music"
         },
         obiwan: {
@@ -22,8 +16,8 @@ var starWarsRPG = {
             health: 120 ,
             damage: 10, 
             model: "assets/images/characters/obiwankenobi.webp",
-            fightMusic: "lamusica",
-            background: "assets/images/background/ROTJ_Throne_Room.png",
+            fightMusic: "assets/sounds/battlemusic/battle_of_the_heroes.mp3",
+            background: "assets/images/background/jeditemple.jpg",
             winMusic: "music"
         },
         maul: {
@@ -32,8 +26,8 @@ var starWarsRPG = {
             health: 180, 
             damage: 25, 
             model: "assets/images/characters/DarthMaul.jpeg",
-            fightMusic: "lamusica",
-            background: "assets/images/background/Theed_hanger_battle.png",
+            fightMusic: "assets/sounds/battlemusic/duel_of_the_fates.mp3",
+            background: "assets/images/background/Theed_Generator_Complex.png",
             winMusic: "music"
         },
         sidious: {
@@ -42,7 +36,7 @@ var starWarsRPG = {
             health: 150, 
             damage: 20, 
             model: "assets/images/characters/darthSidious.jpg",
-            fightMusic: "lamusica",
+            fightMusic: "assets/sounds/battlemusic/emperor_theme.mp3",
             background: "assets/images/background/ROTJ_Throne_Room.png",
             winMusic: "music"
         },
@@ -63,7 +57,7 @@ var starWarsRPG = {
             return attackValue;
         }
     },
-    defender: {
+    defender: { 
         defenderCount:0,
         defendersAllowed: 1,
         id: "",
@@ -74,7 +68,7 @@ var starWarsRPG = {
         background: "",
     },
     resetGame: function() {
-        // clean up code to reduce repeated naming
+    // clean up code to reduce repeated naming
     starWarsRPG.attacker.attackerCount = 0;
     starWarsRPG.defender.defenderCount = 0;
     //Set characters you need to defeat to total characters less one(the player character) 
@@ -104,14 +98,18 @@ var starWarsRPG = {
     },
     theme: {
         lightsaberNoises: ["noise1","noise2","noise3","noise4"],
-        music:"main-titlemusic",
+        music:"assets/sounds/star_wars_main_theme.mp3",
         background:"assets/images/background/starwarstitlescreen.png",
+        playAudio: function() {
+            document.getElementById("audio").play();
+        },
+        pauseAudio: function() {
+            document.getElementById("audio").pause();
+        }
     }
 }  
 
-let characterCount = Object.keys(starWarsRPG.characters).length;
-
-//Initiate game / inital board layout
+//Initiate game with inital board layout
 starWarsRPG.resetGame();
 
 // Click event for the attack button. 
@@ -146,9 +144,11 @@ $("body").on("click","#attack", function(){
 
             if( characterCount === 0){
                 $("#attack-dialogue").text("Congratulations! You've defeated all enemies you are the most powerful force user!");
+                $("body").css("background-image", `url(${attacker.background})`);
                 $(".resetButton").removeAttr("id");
             } else {
             $("#attack-dialogue").text(`Well done! You defeated ${defender.defenderName}! Choose another enemy to fight!`)
+            $("body").css("background-image", `url(${attacker.background})`);
             }
 
         } else { 
@@ -168,7 +168,10 @@ $("body").on("click","#attack", function(){
     }
 })
 
-//first click event for choosing your character
+$("#playAudio").on("click", starWarsRPG.theme.playAudio);
+$("#pauseAudio").on("click", starWarsRPG.theme.pauseAudio);
+
+//First click event for choosing your character
 $("body").on("click", ".characterBox", function(){
     let attacker = starWarsRPG.attacker;
 
@@ -184,7 +187,16 @@ $("body").on("click", ".characterBox", function(){
         attacker.health = parseInt($(this).attr("data-health"));
         attacker.damage = parseInt($(this).attr("data-damage"));
         attacker.staticDamage = parseInt($(this).attr("data-damage"));
-
+        attacker.background = starWarsRPG.characters[attacker.id].background;
+        $("body").css({
+            "background-image":`url(${attacker.background})`,
+            // TODO: Was trying to get images to stretch and not repeat but couldn't get to work.
+            // "background-repeat":"no-repeat",
+            // "background-position":"center",
+            // "-webkit-background-size":"cover",
+            // "-moz-background-size":"cover",
+            // "-o-background-size":"cover"
+        });
     }
 })
 
@@ -202,6 +214,10 @@ $("body").on("click", ".enemy", function(){
         defender.damage = parseInt($(this).attr("data-damage"));
         $("#attack-dialogue").html(`You have selected ${defender.defenderName} to be your opponent.<br>
         Click the attack button to start the fight.`)
+        defender.background = starWarsRPG.characters[defender.id].background;
+        $("body").css("background-image", `url(${defender.background})`);
+        $("#audio").attr("src", starWarsRPG.characters[defender.id].fightMusic);
+        $("#audio")[0].play();
 
     }
 })
@@ -214,4 +230,10 @@ $("body").on("click",".resetButton", function(){
     $("#current-enemy").empty();
     starWarsRPG.resetGame();
     $(".resetButton").attr("id","resetKey");
+    $("body").css("background-image", `url(${starWarsRPG.theme.background})`);
+    $("#audio").attr("src", starWarsRPG.theme.music);
+    $("#audio")[0].play();
 })
+
+$("#playAudio").on("click", starWarsRPG.theme.playAudio);
+$("#pauseAudio").on("click", starWarsRPG.theme.pauseAudio);

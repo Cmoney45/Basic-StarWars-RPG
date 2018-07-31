@@ -83,7 +83,9 @@ button {
 
 #attack-dialogue {
     text-align: center;
-
+    display: inline-block;
+    background-color: #111111;
+    margin: 10px;
 }
 
 #resetKey {
