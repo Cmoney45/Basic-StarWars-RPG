@@ -149,6 +149,7 @@ $("body").on("click","#attack", function(){
             } else {
             $("#attack-dialogue").text(`Well done! You defeated ${defender.defenderName}! Choose another enemy to fight!`)
             $("body").css("background-image", `url(${attacker.background})`);
+            starWarsRPG.theme.pauseAudio;
             }
 
         } else { 
